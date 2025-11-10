@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+
+# Logs
+logs/
+*.log
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de compilación (por si en algún momento generas build)
+dist/
+build/
+
+# Archivos de cobertura de tests
+coverage/
+
+# Archivos de entorno o configuración local
+*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
