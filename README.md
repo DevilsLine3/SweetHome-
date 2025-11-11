@@ -74,7 +74,7 @@ Proyecto backend en Node.js con Express y MongoDB (Mongoose) que expone endpoint
 ## Instalación
 Ingresar a la carpeta:
 ```powershell
-cd "c:\Users\justi\OneDrive\Escritorio\SweetHome\Backend"
+cd "c:\Users\justi\OneDrive\Escritorio\SweetHome-\Backend"
 ```
 
 2. Instalar dependencias:
