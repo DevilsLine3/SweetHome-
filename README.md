@@ -192,6 +192,3 @@ Durante la revisión rápida del código se detectaron las siguientes observacio
 ## Cómo probar rápidamente
 - Levanta el servidor con `node app.js` o `npx nodemon app.js`.
 - Usa Postman o Insomnia para probar los endpoints. Asegúrate de incluir el header `Authorization: Bearer <token>` para rutas privadas (si tu `verificarToken` lo requiere).
-
-## Licencia
-Proyecto privado (añadir licencia si procede).
