@@ -49,7 +49,7 @@ El proyecto usa las siguientes variables (nombradas tal como aparecen en `config
 - PASS_DB: contraseña del usuario de la BD
 - SERVER_DB: host/cluster de MongoDB (ej: cluster0.mongodb.net)
 - JWT_TOKEN_SECRET: secreto para sesiones/firmas
-- FRONTEND_URL: URL del frontend (ej: http://localhost:3000)
+- FRONTEND_URL: URL del frontend (ej: http://localhost:5173)
 - PORT: puerto para el servidor (opcional, por defecto 5100)
 - NODE_ENV: development | production
 
