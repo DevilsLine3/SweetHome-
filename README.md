@@ -7,8 +7,8 @@
 Para iniciar debes clonar el repositorio:
 ```bash
 
-git clone https://github.com/usuario/sweethome-frontend.git
-cd SweetHome
+git clone [https://github.com/usuario/sweethome-frontend.git](https://github.com/DevilsLine3/SweetHome-.git)
+cd SweetHome-
 
 ```
 # Frontend
