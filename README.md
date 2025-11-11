@@ -1,7 +1,54 @@
-<h1 align="center">🏡✨ Sweet Home ✨🏡</h1>
+# 🏡 Sweet Home - Sistema de Venta de Garage  
 
-<p align="center"> <i><strong>Marketplace: Artículos para el Hogar.</strong></i></p>
+<p align="center"> <i><strong> Artículos para el Hogar.</strong></i></p>
 <p >  Plataforma digital donde los usuarios pueden vender sus productos y, al mismo tiempo, comprar los de otros. Es decir, funciona como un “mercado virtual” en el que se encuentran múltiples vendedores y compradores. </p>
+
+# Proyecto
+Para iniciar debes clonar el repositorio:
+```bash
+
+git clone https://github.com/usuario/sweethome-frontend.git
+cd SweetHome
+
+```
+# Frontend
+
+| Tecnología | Uso |
+|------------|-----|
+| React | Framework principal del frontend |
+| TailwindCSS | Estilos rápidos y responsivos |
+| Axios | Consumo de la API del backend |
+| Vite | Servidor de desarrollo y build rápido |
+
+
+Antes de iniciar el Frontend debes tener instalado:
+
+- Node.js
+- npm
+
+Verifica con:
+
+```bash
+node -v
+npm -v
+
+```
+
+Luego pasate a la carpeta del frontend:
+
+```bash
+cd Frontend
+
+```
+Instala dependecias:
+```bash
+npm install
+```
+
+Ejecuta:
+``` bash
+npm run dev
+```
 
 
 # Backend
@@ -25,8 +72,7 @@ Proyecto backend en Node.js con Express y MongoDB (Mongoose) que expone endpoint
 - (Opcional) Credenciales de Google OAuth para login con Google
 
 ## Instalación
-1. Clonar el repositorio y entrar en la carpeta del backend:
-
+Ingresar a la carpeta:
 ```powershell
 cd "c:\Users\justi\OneDrive\Escritorio\SweetHome\Backend"
 ```
@@ -55,7 +101,6 @@ El proyecto usa las siguientes variables (nombradas tal como aparecen en `config
 - SERVER_DB: host/cluster de MongoDB (ej: cluster0.mongodb.net)
 - JWT_TOKEN_SECRET: secreto para sesiones/firmas
 - FRONTEND_URL: URL del frontend (ej: http://localhost:5173)
-- PORT: puerto para el servidor (opcional, por defecto 5100)
 - NODE_ENV: development | production
 
 Cloudinary:
