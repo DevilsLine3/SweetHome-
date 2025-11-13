@@ -3,10 +3,11 @@ import axios from "axios";
 import ProductList from "./productos.jsx";
 import { Plus, Image as ImageIcon } from "lucide-react"; 
 
+
 // Configuración de URLs
-const API_URL = "http://localhost:5100/api/productos";
-const API_CATEGORIAS_URL = "http://localhost:5100/api/categorias";
-const API_USUARIOS_URL = "http://localhost:5100/api/usuarios"; 
+const API_URL = VITE_API_PRODUCTOS;
+const API_CATEGORIAS_URL = VITE_API_CATEGORIAS;
+const API_USUARIOS_URL = VITE_API_USUARIOS; 
 
 
 const getAuthConfig = () => {
