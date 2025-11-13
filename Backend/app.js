@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
 
 // Iniciar servidor
 try {
-    const PORT = process.env.PORT || 5100;
+    const PORT = process.env.PORT;
     app.listen(PORT, ()=> console.log('Servidor activo en el puerto ' + PORT))
 } catch (e) {
     console.log(e)
