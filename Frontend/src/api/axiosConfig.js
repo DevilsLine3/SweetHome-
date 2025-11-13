@@ -1,7 +1,14 @@
 import axios from "axios";
 
+// Normaliza la URL de la API: si se provee VITE_API_URL y no termina en '/api', la añade.
+const raw = import.meta.env.VITE_API_URL;
+let base = '/api';
+if (raw) {
+  base = raw.endsWith('/api') ? raw : raw.replace(/\/$/, '') + '/api';
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api', // usa variable VITE_API_URL o ruta relativa
+  baseURL: base,
 });
 
 api.interceptors.request.use(

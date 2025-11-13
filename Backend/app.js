@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import session from "express-session";
 import passport from "./config/googleAuth.js";
 import dbClient from './config/dbClient.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Importar rutas
 import routersUsuario from './routers/usuariosR.js';
@@ -12,6 +14,10 @@ import routersCategoria from './routers/categoriasR.js';
 import routerspedidos from './routers/pedidosR.js';
 import routerProducto from './routers/productosR.js';
 import googleAuthRoutes from "./routers/googleR.js";
+
+// Obtener __dirname en ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json({ limit: '50mb' })); 
@@ -41,12 +47,23 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Servir frontend estático (build de Vite)
+const frontendPath = path.join(__dirname, '../Frontend/dist');
+app.use(express.static(frontendPath));
+
 // Rutas
 app.use('/api/usuarios', routersUsuario);
 app.use('/api/productos', routerProducto);
 app.use('/api/categorias', routersCategoria);
 app.use('/api/pedidos', routerspedidos);
 app.use("/auth", googleAuthRoutes);
+
+// SPA fallback: servir index.html para rutas que no sean de la API
+app.get('*', (req, res, next) => {
+    // Si la ruta comienza con /api o /auth, pasar al siguiente handler
+    if (req.path.startsWith('/api') || req.path.startsWith('/auth')) return next();
+    res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 // Manejo de errores global
 app.use((err, req, res, next) => {
