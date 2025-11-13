@@ -20,29 +20,29 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(express.json({ limit: '50mb' })); 
 
-// Aumenta el límite para datos codificados de URL (si los usas)
+// Límite para JSON y URL-encoded
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// Middlewares básicos
+// Body parser (opcional si ya usas express.json/urlencoded)
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Configurar CORS: si FRONTEND_URL está definido lo usamos, si no permitimos el origen del request
+// Configurar CORS
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || true,
+    origin: process.env.FRONTEND_URL || '*', // Permite cualquier origen si no se define FRONTEND_URL
     credentials: true,
 };
 app.use(cors(corsOptions));
 
-// Configuración de sesión y autenticación
+// Configuración de sesión
 app.use(session({
-    secret: process.env.JWT_TOKEN_SECRET,
+    secret: process.env.JWT_TOKEN_SECRET || 'default_secret',
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production', // Solo cookies seguras en producción
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
     }
 }));
@@ -54,16 +54,15 @@ app.use(passport.session());
 const frontendPath = path.join(__dirname, '../Frontend/dist');
 app.use(express.static(frontendPath));
 
-// Rutas
+// Rutas de API
 app.use('/api/usuarios', routersUsuario);
 app.use('/api/productos', routerProducto);
 app.use('/api/categorias', routersCategoria);
 app.use('/api/pedidos', routerspedidos);
 app.use("/auth", googleAuthRoutes);
 
-// SPA fallback: servir index.html para rutas que no sean de la API
+// SPA fallback: sirve index.html para rutas no API ni /auth
 app.get('*', (req, res, next) => {
-    // Si la ruta comienza con /api o /auth, pasar al siguiente handler
     if (req.path.startsWith('/api') || req.path.startsWith('/auth')) return next();
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
@@ -77,15 +76,11 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Iniciar servidor
-try {
-    const PORT = process.env.PORT || 5100;
-    app.listen(PORT, ()=> console.log('Servidor activo en el puerto ' + PORT))
-} catch (e) {
-    console.log(e)
-}
+// Iniciar servidor en el puerto que asigna Render
+app.listen(process.env.PORT, () => console.log(`Servidor activo en el puerto ${process.env.PORT}`));
 
-process.on('SIGINT', async() =>{
-    dbClient.cerrarConexion();
+// Manejo de cierre de DB
+process.on('SIGINT', async () => {
+    await dbClient.cerrarConexion();
     process.exit(0);
 });
