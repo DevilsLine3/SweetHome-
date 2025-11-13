@@ -1,4 +1,5 @@
 import { useTheme } from "../thema"; // 🔹 hook global
+import bgPattern from "../../assets/light-blue-pattern.jpg";
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
@@ -36,7 +37,7 @@ return (
         <div
         className="h-full w-full"
         style={{
-            backgroundImage: 'url("/Frontend/src/assets/light-blue-pattern.jpg")',
+            backgroundImage: `url(${bgPattern})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
         }}

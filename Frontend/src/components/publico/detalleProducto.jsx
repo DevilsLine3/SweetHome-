@@ -10,7 +10,7 @@ Plus,
 } from "lucide-react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useTheme } from "../thema.jsx"
-import axios from "axios"
+import api from "../../api/axiosConfig"
 
 // Mapeo de IDs de categorías a nombres legibles (igual que en productos.jsx)
 const categoryMap = {
@@ -31,7 +31,7 @@ const [isFavorite, setIsFavorite] = useState(false)
 useEffect(() => {
     const fetchProduct = async () => {
     try {
-        const response = await axios.get(`http://localhost:5100/api/productos/${id}`)
+    const response = await api.get(`/productos/${id}`)
         const p = response.data
         const normalizedProduct = {
         id: p._id,

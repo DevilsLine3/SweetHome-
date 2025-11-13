@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../thema.jsx";
-import axios from "axios";
-
-// URL de la API (es mejor declararla fuera del componente o en un archivo de configuración)
-const API_CATEGORIAS_URL = "http://localhost:5100/api/categorias";
-const API_PRODUCTOS_URL = "http://localhost:5100/api/productos";
+import api from "../../api/axiosConfig";
 
 
 export default function Productos() {
@@ -24,7 +20,7 @@ export default function Productos() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await axios.get(API_CATEGORIAS_URL);
+                const res = await api.get('/categorias');
                 const active = res.data.filter((c) => c.Activo);
 
                 const map = {};
@@ -43,7 +39,7 @@ export default function Productos() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await axios.get(API_PRODUCTOS_URL);
+                const res = await api.get('/productos');
                 
                 // 🟢 FILTRO CONSOLIDADO: Solo si está 'Disponible' Y 'Visible: true'
                 const availableAndVisible = res.data.filter(p => 
