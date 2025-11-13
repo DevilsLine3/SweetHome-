@@ -16,7 +16,7 @@ const [photoPreview, setPhotoPreview] = useState(null);
 const [photoFile, setPhotoFile] = useState(null);
 const fileInputRef = useRef(null);
 
-const API_URL = VITE_API_URL; // URL Backend
+const API_URL = import.meta.env.VITE_API_URL;// URL Backend
 
 // Manejo de foto
 const handlePhotoChange = (e) => {

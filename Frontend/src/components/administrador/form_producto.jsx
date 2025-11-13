@@ -5,9 +5,10 @@ import { Plus, Image as ImageIcon } from "lucide-react";
 
 
 // Configuración de URLs
-const API_URL = VITE_API_PRODUCTOS;
-const API_CATEGORIAS_URL = VITE_API_CATEGORIAS;
-const API_USUARIOS_URL = VITE_API_USUARIOS; 
+const API_URL = import.meta.env.VITE_API_PRODUCTOS;
+const API_CATEGORIAS_URL = import.meta.env.VITE_API_CATEGORIAS;
+const API_USUARIOS_URL = import.meta.env.VITE_API_USUARIOS;
+
 
 
 const getAuthConfig = () => {
