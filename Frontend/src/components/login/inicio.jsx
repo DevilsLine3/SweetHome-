@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Store, Mail, Lock, Eye, EyeOff, Upload, X } from "lucide-react";
-import axios from "axios";
+import api from "../../api/axiosConfig";
 
 export function ModalInicio({ open, onOpenChange, onLoginSuccess }) {
 const [authMode, setAuthMode] = useState("login");
@@ -16,7 +16,7 @@ const [photoPreview, setPhotoPreview] = useState(null);
 const [photoFile, setPhotoFile] = useState(null);
 const fileInputRef = useRef(null);
 
-const API_URL = import.meta.env.VITE_API_URL;// URL Backend
+// Usamos la instancia `api` y rutas relativas (/usuarios/...)
 
 // Manejo de foto
 const handlePhotoChange = (e) => {
@@ -44,7 +44,7 @@ const logout = () => {
 // Login con backend
 const loginUser = async () => {
 try {
-    const response = await axios.post(`${API_URL}/api/usuarios/login`, {
+    const response = await api.post(`/usuarios/login`, {
     Email: email,       // ⚠ Debe coincidir con lo que espera el backend
     Contraseña: password // ⚠ Debe coincidir con lo que espera el backend
     });
@@ -89,14 +89,14 @@ try {
         formData.Foto = reader.result; // aquí va base64
 
         // Enviar al backend
-        await axios.post("${API_URL}/api/usuarios/register", formData);
+        await api.post(`/usuarios/register`, formData);
 
         alert("Usuario registrado correctamente");
         setAuthMode("login");
     };
     reader.readAsDataURL(photoFile); // convierte a base64
     } else {
-    await axios.post("${API_URL}/api/usuarios/register", formData);
+    await api.post(`/usuarios/register`, formData);
     alert("Usuario registrado correctamente");
     setAuthMode("login");
     }

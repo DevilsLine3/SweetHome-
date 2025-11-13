@@ -1,13 +1,13 @@
 import { useState, useEffect, useCallback } from "react"; // 🟢 Importamos useCallback
-import axios from "axios";
+import api from "../../api/axiosConfig";
 import ProductList from "./productos.jsx";
 import { Plus, Image as ImageIcon } from "lucide-react"; 
 
 
-// Configuración de URLs
-const API_URL = import.meta.env.VITE_API_PRODUCTOS;
-const API_CATEGORIAS_URL = import.meta.env.VITE_API_CATEGORIAS;
-const API_USUARIOS_URL = import.meta.env.VITE_API_USUARIOS;
+// Usamos rutas relativas (la base se configura en `src/api/axiosConfig.js`)
+const API_URL = '/productos';
+const API_CATEGORIAS_URL = '/categorias';
+const API_USUARIOS_URL = '/usuarios';
 
 
 
@@ -56,8 +56,8 @@ export default function ProductManagement() {
     // Usamos el mapa pasado como argumento, o si no se pasó, usamos el del estado.
     const map = currentMap || categoryMap; 
 
-    try {
-      const res = await axios.get(API_URL);
+        try {
+            const res = await api.get(API_URL);
       
       const normalizedProducts = res.data.map((p) => {
         return {
@@ -92,7 +92,7 @@ export default function ProductManagement() {
 
       // 1. CARGAR CATEGORÍAS
       try {
-        const resCat = await axios.get(API_CATEGORIAS_URL);
+    const resCat = await api.get(API_CATEGORIAS_URL);
         const activeCategories = resCat.data.filter((c) => c.Activo);
         activeCategories.forEach((c) => (map[c._id] = c.Nombre));
         
@@ -108,8 +108,8 @@ export default function ProductManagement() {
       }
       
       // 2. CARGAR USUARIOS
-      try {
-        const resUser = await axios.get(API_USUARIOS_URL, getAuthConfig()); 
+    try {
+    const resUser = await api.get(API_USUARIOS_URL, getAuthConfig()); 
         usersData = resUser.data; // Usamos la variable local
         setUsers(usersData);
         
@@ -216,7 +216,7 @@ export default function ProductManagement() {
     }
     
     try {
-      await axios.delete(`${API_URL}/${id}`, getAuthConfig());
+    await api.delete(`${API_URL}/${id}`, getAuthConfig());
       alert("Producto eliminado correctamente.");
       // Actualizar la lista sin recargar
       setProducts(products.filter(p => p.id !== id));
@@ -236,11 +236,11 @@ export default function ProductManagement() {
     const newBackendStatus = currentBackendStatus === "Disponible" ? "Agotado" : "Disponible";
     
     try {
-      await axios.put(
-        `${API_URL}/${id}`, 
-        { Estado: newBackendStatus }, 
-        getAuthConfig()
-      );
+            await api.put(
+                `${API_URL}/${id}`, 
+                { Estado: newBackendStatus }, 
+                getAuthConfig()
+            );
       
       // Actualizar estado en el frontend
       setProducts(
@@ -303,13 +303,13 @@ export default function ProductManagement() {
     
 
     try {
-      if (editingId) {
-        // Petición PUT
-        await axios.put(`${API_URL}/${editingId}`, dataToSend, getAuthConfig());
+                if (editingId) {
+                // Petición PUT
+                await api.put(`${API_URL}/${editingId}`, dataToSend, getAuthConfig());
         alert("Producto actualizado correctamente.");
       } else {
         // Petición POST
-        await axios.post(API_URL, dataToSend, getAuthConfig());
+                await api.post(API_URL, dataToSend, getAuthConfig());
         alert("Producto creado correctamente.");
       }
       

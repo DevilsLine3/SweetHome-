@@ -28,10 +28,13 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // Middlewares básicos
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true
-}));
+
+// Configurar CORS: si FRONTEND_URL está definido lo usamos, si no permitimos el origen del request
+const corsOptions = {
+    origin: process.env.FRONTEND_URL || true,
+    credentials: true,
+};
+app.use(cors(corsOptions));
 
 // Configuración de sesión y autenticación
 app.use(session({
@@ -76,7 +79,7 @@ app.use((err, req, res, next) => {
 
 // Iniciar servidor
 try {
-    const PORT = process.env.PORT;
+    const PORT = process.env.PORT || 5100;
     app.listen(PORT, ()=> console.log('Servidor activo en el puerto ' + PORT))
 } catch (e) {
     console.log(e)
