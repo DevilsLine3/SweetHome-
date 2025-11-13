@@ -89,14 +89,14 @@ try {
         formData.Foto = reader.result; // aquí va base64
 
         // Enviar al backend
-        await axios.post("http://localhost:5100/api/usuarios/register", formData);
+        await axios.post("${API_URL}/api/usuarios/register", formData);
 
         alert("Usuario registrado correctamente");
         setAuthMode("login");
     };
     reader.readAsDataURL(photoFile); // convierte a base64
     } else {
-    await axios.post("http://localhost:5100/api/usuarios/register", formData);
+    await axios.post("${API_URL}/api/usuarios/register", formData);
     alert("Usuario registrado correctamente");
     setAuthMode("login");
     }
