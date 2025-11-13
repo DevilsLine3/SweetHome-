@@ -61,11 +61,11 @@ app.use('/api/categorias', routersCategoria);
 app.use('/api/pedidos', routerspedidos);
 app.use("/auth", googleAuthRoutes);
 
-// SPA fallback: sirve index.html para rutas no API ni /auth
-app.get('*', (req, res, next) => {
-        if (req.path.startsWith('/api') || req.path.startsWith('/auth')) return next();
+app.use((req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/auth')) return next();
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
+
 
 // Manejo de errores global
 app.use((err, req, res, next) => {
