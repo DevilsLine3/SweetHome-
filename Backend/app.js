@@ -63,7 +63,7 @@ app.use("/auth", googleAuthRoutes);
 
 // SPA fallback: sirve index.html para rutas no API ni /auth
 app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api') || req.path.startsWith('/auth')) return next();
+        if (req.path.startsWith('/api') || req.path.startsWith('/auth')) return next();
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
